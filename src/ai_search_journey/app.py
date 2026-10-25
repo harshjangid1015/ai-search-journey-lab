@@ -35,6 +35,7 @@ from ai_search_journey.ui_formatters import (
 )
 from ai_search_journey.visibility.ui import render_visibility_tab
 from ai_search_journey.visibility.ui_v4 import render_visibility_agent_tab
+from ai_search_journey.visibility.ui_v6 import render_what_if_tab
 
 DEFAULT_COFFEE_QUERY = (
     "Find a coffee shop near Geekdom San Antonio for 6 people "
@@ -140,6 +141,8 @@ def render_app() -> None:
             "Journey Analysis [V2]",
             "AI Visibility [V3]",
             "AI Visibility Agent [V4]",
+            "Observability [V5]",
+            "What-If Simulator [V6]",
         ])
         with tab_v1:
             render_journey_hint()
@@ -149,18 +152,25 @@ def render_app() -> None:
             render_visibility_tab(None)
         with tab_v4:
             render_visibility_agent_tab()
+        with tab_v5:
+            render_observability_tab()
+        with tab_v6:
+            render_what_if_tab(None)    
         return
+        
 
     # 3. Search Journey Complete Collapsible Expander (Default collapsed)
     if journey.execution_trace:
         render_execution_timeline(journey.execution_trace, journey=journey)
 
     # Capability Tabs: V1 (Search to Decision), V2 (Journey Analysis), V3 (AI Visibility), V4
-    tab_v1, tab_v2, tab_v3, tab_v4 = st.tabs([
+    tab_v1, tab_v2, tab_v3, tab_v4, tab_v5, tab_v6  = st.tabs([
         "Search to Decision [V1]",
         "Journey Analysis [V2]",
         "AI Visibility [V3]",
         "AI Visibility Agent [V4]",
+        "Observability [V5]",
+        "What-If Simulator [V6]",
     ])
 
     # ==================================================================
@@ -548,6 +558,16 @@ def render_app() -> None:
     # ==================================================================
     with tab_v4:
         render_visibility_agent_tab()
+    # ==================================================================
+    # TAB 4: AI Visibility Agent [V4]
+    # ==================================================================
+    with tab_v5:
+        render_observability_tab()
+    # ==================================================================
+    # TAB 4: AI Visibility Agent [V4]
+    # ==================================================================
+    with tab_v6:
+        render_what_if_tab(journey)
 
 if __name__ == "__main__":
     render_app()
